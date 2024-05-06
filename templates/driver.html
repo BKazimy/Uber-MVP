@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% set title = 'DRIVER' %}
+
+{% block hero %}
+<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+  <h4>Click and earn</h4>
+</div>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container fs-5 form justify-content-sm-center mx-auto col-6 py-5">
+
+    {% if processing_posts %}
+    <hr class="my-4">
+    <h2>Processing rides</h2>
+    <div class="rides post-meta">
+        {% for post in processing_posts %}
+        <div class="post-preview" id="posts">
+        
+            <div class="post-preview" id="posts">
+            
+                <h4 class="post-title">From: {{ post.depart }}</h4>
+                <h5 class="post-subtitle">To: {{ post.target }}</h5>
+            
+            <p class="post-meta">Estemates: afs{{ post.est_fare }}, {{ post.distance }}km, {{ post.est_time }}mins
+                <br>Post Time: {{ post.post_time }}
+                <br>State: {{ post.state }} <a href="{{url_for('complet', id=post.id) }}">Complet</a>
+            </p>
+            </div>
+        </div>
+        <hr class="my-2">
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if waiting_posts %}
+    <hr class="my-4">
+    <h2>Waiting rides</h2>
+    <div class="rides post-meta">
+        {% for post in waiting_posts %}
+        <div class="post-preview" id="posts">
+        
+            <div class="post-preview" id="posts">
+            
+                <h4 class="post-title">From: {{ post.depart }}</h4>
+                <h5 class="post-subtitle">To: {{ post.target }}</h5>
+            
+            <p class="post-meta">Estemates: afs{{ post.est_fare }}, {{ post.distance }}km, {{ post.est_time }}mins
+                <br>Post Time: {{ post.post_time }}
+                <br>State: {{ post.state }} <a href="{{url_for('confirm', id=post.id) }}">Confirm</a>
+            </p>
+            </div>
+        </div>
+        <hr class="my-2">
+        {% endfor %}
+        </div>
+    {% endif %}
+    
+    {% if completed_posts %}
+    <hr class="my-4">
+    <h2>Completed rides</h2>
+    <div class="rides post-meta">
+        {% for post in completed_posts %}
+        <div class="post-preview" id="posts">
+        
+            <div class="post-preview" id="posts">
+            
+                <h4 class="post-title">{{ post.depart }} to {{ post.target }}</h4>
+            
+            <p class="post-meta">{{ post.distance }}km in {{ post.cmp_time }}mins = afs{{ post.real_fare }}
+                <br>State: {{ post.state }}
+            </p>
+            </div>
+        </div>
+        <hr class="my-2">
+        {% endfor %}
+        </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

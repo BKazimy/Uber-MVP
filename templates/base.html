@@ -1,0 +1,46 @@
+
+{% set title = title or 'BOOBAR' %}
+{% set header_img = header_img or 'https://t4.ftcdn.net/jpg/05/73/98/41/360_F_573984115_LFZ4FQBviAL7kYCYnr0qUsh4M0Zdpi0K.jpg' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block style %}
+    {{ bootstrap.load_css() }}
+
+    {% endblock %}
+    <title>{{ title }}</title>
+</head>
+<body>
+    
+    {% include 'navbar.html' %}
+    
+  <!-- Page Hero-->
+  <div class="bg-dark text-secondary px-4 py-5 text-center">
+    <div class="py-5">
+      <div class="col-lg-6 mx-auto">
+        <h1 class="display-5 fw-bold text-white">{{ title }}</h1>
+        {% block hero %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+  
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    <div class="alerts my-5 mx-auto justify-content-center col-6">
+      {% for message in messages %}
+      <div class="alert alert-{{ message.0 }}" role="alert">{{ message.0 }}: {{ message.1|safe }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}    
+
+    {{ bootstrap.load_js() }}
+
+</body>
+</html>

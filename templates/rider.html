@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% set title = 'Rider' %}
+
+
+{% block hero %}
+  <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+    <h4>Fill and go</h4>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container fs-5 form justify-content-sm-center mx-auto col-6 py-5">
+
+    {% if cmp_ride %}
+    <h2 class="post-title">{{ cmp_ride.depart }} to {{ cmp_ride.target }}</h2>
+    {{ cmp_ride.distance }}km in {{ cmp_ride.real_time }}mins = afs{{ cmp_ride.real_fare }}
+    <hr class="my-4">
+    {% endif %}
+
+    <div class="form">
+    {{ render_form(form)|safe }}
+    </div>
+
+<hr class="my-4">
+
+    {% if rides %}
+    <div class="rides post-meta">
+    {% for ride in rides %}
+    <div class="post-preview" id="posts">
+    
+        <div class="post-preview" id="posts">
+        
+            <h2 class="post-title">From: {{ ride.depart }}</h2>
+            <h3 class="post-subtitle">To: {{ ride.target }}</h3>
+        
+        <p class="post-meta">Estemates: afs{{ ride.est_fare }}, {{ ride.distance }}km, {{ ride.est_time }}mins
+            <br>Post Time: {{ ride.post_time }}
+            <br>State: {{ ride.state }} <a href="{{url_for('cancel', id=ride.id) }}">Cancel</a>
+        </p>
+        </div>
+    </div>
+    <hr class="my-2">
+    {% endfor %}
+
+    </div>
+{% endif %}
+</div>
+
+{% endblock %}
