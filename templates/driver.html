@@ -14,70 +14,72 @@
 <div class="container fs-5 form justify-content-sm-center mx-auto col-6 py-5">
 
     {% if processing_posts %}
-    <hr class="my-4">
-    <h2>Processing rides</h2>
-    <div class="rides post-meta">
-        {% for post in processing_posts %}
-        <div class="post-preview" id="posts">
-        
+    <section class="my-3">
+        <div class="hr-sect">Processing</div>
+        <div class="rides post-meta">
+            {% for post in processing_posts %}
             <div class="post-preview" id="posts">
             
-                <h4 class="post-title">From: {{ post.depart }}</h4>
-                <h5 class="post-subtitle">To: {{ post.target }}</h5>
-            
-            <p class="post-meta">Estemates: afs{{ post.est_fare }}, {{ post.distance }}km, {{ post.est_time }}mins
-                <br>Post Time: {{ post.post_time }}
-                <br>State: {{ post.state }} <a href="{{url_for('complet', id=post.id) }}">Complet</a>
-            </p>
+                <div class="post-preview" id="posts">
+                
+                    <h4 class="post-title">From: {{ post.depart }}</h4>
+                    <h5 class="post-subtitle">To: {{ post.target }}</h5>
+                
+                <p class="post-meta">Estemates: afs{{ post.est_fare }}, {{ post.distance }}km, {{ post.est_time }}mins
+                    <br>Post Time: {{ post.post_time }}
+                    <br>State: {{ post.state }} <a href="{{url_for('complet', id=post.id) }}">Complet</a>
+                </p>
+                </div>
+            </div><br><br>
+            {% endfor %}
             </div>
-        </div>
-        <hr class="my-2">
-        {% endfor %}
-        </div>
+        </section>
     {% endif %}
 
     {% if waiting_posts %}
-    <hr class="my-4">
-    <h2>Waiting rides</h2>
-    <div class="rides post-meta">
-        {% for post in waiting_posts %}
-        <div class="post-preview" id="posts">
-        
+    <section class="my-3">
+        <div class="hr-sect">Waiting</div>
+
+        <div class="rides post-meta">
+            {% for post in waiting_posts %}
             <div class="post-preview" id="posts">
             
-                <h4 class="post-title">From: {{ post.depart }}</h4>
-                <h5 class="post-subtitle">To: {{ post.target }}</h5>
-            
-            <p class="post-meta">Estemates: afs{{ post.est_fare }}, {{ post.distance }}km, {{ post.est_time }}mins
-                <br>Post Time: {{ post.post_time }}
-                <br>State: {{ post.state }} <a href="{{url_for('confirm', id=post.id) }}">Confirm</a>
-            </p>
+                <div class="post-preview" id="posts">
+                
+                    <h4 class="post-title">From: {{ post.depart }}</h4>
+                    <h5 class="post-subtitle">To: {{ post.target }}</h5>
+                
+                <p class="post-meta">Estemates: afs{{ post.est_fare }}, {{ post.distance }}km, {{ post.est_time }}mins
+                    <br>Post Time: {{ post.post_time }}
+                    <br>State: {{ post.state }} <a href="{{url_for('confirm', id=post.id) }}">Confirm</a>
+                </p>
+                </div>
+            </div><br><br>
+            {% endfor %}
             </div>
-        </div>
-        <hr class="my-2">
-        {% endfor %}
-        </div>
+    </section>
     {% endif %}
     
     {% if completed_posts %}
-    <hr class="my-4">
-    <h2>Completed rides</h2>
-    <div class="rides post-meta">
+    <section class="my-3">
+        <div class="hr-sect">Completed rides</div>
+
+        <div class="rides post-meta">
         {% for post in completed_posts %}
-        <div class="post-preview" id="posts">
-        
             <div class="post-preview" id="posts">
             
-                <h4 class="post-title">{{ post.depart }} to {{ post.target }}</h4>
-            
-            <p class="post-meta">{{ post.distance }}km in {{ post.cmp_time }}mins = afs{{ post.real_fare }}
-                <br>State: {{ post.state }}
-            </p>
-            </div>
-        </div>
-        <hr class="my-2">
+                <div class="post-preview" id="posts">
+                
+                    <h4 class="post-title">{{ post.depart }} to {{ post.target }}</h4>
+                
+                <p class="post-meta">{{ post.distance }}km in {{ post.cmp_time }}mins = afs{{ post.real_fare }}
+                    <br>State: {{ post.state }}
+                </p>
+                </div>
+            </div><br><br>
         {% endfor %}
         </div>
+    </section>
     {% endif %}
 
 </div>

@@ -70,9 +70,10 @@ def rider():
             target=form.target.data,
             distance=dist,
             est_time=est_time,
-            cmp_time=0,
+            cmp_time=est_time,
             state="waiting",
             est_fare=est_fare,
+            real_fare=est_fare,
             post_time=int(datetime.now().timestamp())
         ))
         db.session.commit()
@@ -80,8 +81,10 @@ def rider():
         return flask.redirect(flask.url_for('rider'))
         
     rides = db.session.execute(sqlalchemy.select(Rides).filter(Rides.state=='waiting').order_by(Rides.id.desc())).scalars()
-    cmp_ride = db.session.execute(sqlalchemy.select(Rides).filter(Rides.state=='completed').order_by(Rides.state_updt_time.desc())).scalar()
-    return flask.render_template('rider.html', form=form, rides=rides, cmp_ride=cmp_ride)
+    cmp_ride = db.session.execute(sqlalchemy.select(Rides).filter(Rides.state=='completed').order_by(Rides.id.desc())).scalars()
+    crnt_ride = db.session.execute(sqlalchemy.select(Rides).filter(Rides.state=='prosessing').order_by(Rides.state_updt_time.desc())).scalars()
+        
+    return flask.render_template('rider.html', form=form, rides=rides, crnt_ride=crnt_ride, cmp_ride=cmp_ride)
 
 
 @app.route('/driver')
